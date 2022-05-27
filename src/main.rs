@@ -12,13 +12,14 @@ fn main() {
     let first_number = first.parse::<f32>().unwrap();
     let second_number = second.parse::<f32>().unwrap();
 
-    let result = operate(operator, first_number, second_number);
+    let result = calculate(operator, first_number, second_number);
 
     println!("{:?}", output(first_number, second_number, operator, result));
 }
 
 
-fn operate(operator: char, first_number: f32, second_number: f32) -> f32{ //Rust has implicit return hence no need for return statement
+// Claculate using if else statement
+fn operate(operator: char, first_number: f32, second_number: f32) -> f32 { //Rust has implicit return hence no need for return statement
     if operator == '+' {
         return first_number + second_number;
     } else if operator == '-' {
@@ -29,6 +30,17 @@ fn operate(operator: char, first_number: f32, second_number: f32) -> f32{ //Rust
         first_number * second_number
     } else {
          0.0
+    }
+}
+
+//We can also use Rusts match operator whish is similar to switch statement
+fn calculate(operator: char, first_number: f32, second_number: f32) ->f32 {
+    match operator {
+        '+' => first_number + second_number, // Again, the values are implicitly returned(no return statement or semi-colons)
+        '-' => first_number - second_number,
+        '/' => first_number / second_number,
+        '*' | 'x' | 'X' => first_number * second_number, //use bitwise or so as to use x for multiplication. Otherwise we have to escape * (\*)
+        _ => panic!("Invalid operator used") //Handle other cases (default case)
     }
 }
 
